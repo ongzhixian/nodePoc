@@ -31,6 +31,48 @@ Note: That `express` is only installed once into the `node_modules` folder.
 `npm install express -w tutorial-app`
 `npm install express -w first-app`
 
+## Run app
+
+To setup an workspace to be runnable, you need to add a "start" script 
+in the 'package.json' file residing inside the workspace.
+
+Under the 'scripts' section, add the following below 'test':
+
+`"start": "node index.js"`
+
+So the entire thing should look like:
+
+```package.json
+  ...
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  ...
+```
+
+To run the application in the workspace:
+
+`npm start --workspace=first-app`
+-- OR --
+`npm run start -w first-app`
+
+
+If you want to run the application from the root folder, 
+amend the `package.json` file in the root folder such that it reads:
+
+```package.json
+  ...
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm start --workspace=first-app"
+  },
+  ...
+```
+
+That way, you can enter `npm start` in the root folder to run your application.
+
+
 ## Test
 
 Test the specified 2 workspaces.
