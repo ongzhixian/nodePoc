@@ -10,6 +10,7 @@ const Nav = window.ReactBootstrap.Nav;
 const NavDropdown = window.ReactBootstrap.NavDropdown;
 
 const ExampleToast = window.MyComponents.ExampleToast;
+const Clock = window.MyComponents.Clock;
 
 const App = () => (
   <Container className="p-3 top-most">
@@ -41,6 +42,7 @@ const App = () => (
         </span>
       </ExampleToast>
       {/* <Alert variant="success">This is a success alert—check it out!</Alert> */}
+      <Clock></Clock>
     </Container>
   </Container>
 );

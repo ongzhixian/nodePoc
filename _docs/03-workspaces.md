@@ -19,5 +19,11 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
 3.  <a rest api app>
 4.  <a SSE app>
 5.  <a websocket app>
-6.  one-minute-react
-    npm init -w ./projects/one-minute-react
+6.  one-minute-react (npm init -w ./projects/one-minute-react)
+    3 apps:
+        1.  index.html
+            Basic React app without using JSX
+        2.  index2.html
+            Basic React app using JSX
+        3.  index3.html
+            Basic React app using JSX component in another file.
