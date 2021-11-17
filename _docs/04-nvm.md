@@ -58,4 +58,6 @@ there are alternatives to consider:
 
 ## Reference
 
+https://github.com/coreybutler/nvm-windows
+
 https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows
