@@ -10,5 +10,6 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
 
 1.  first-app
 2.  tutorial-app
-    base on: https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
+    See: https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
+    See: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 3.  <second-app>
