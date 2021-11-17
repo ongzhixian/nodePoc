@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ongzhixian/nodePoc#readme",
   "workspaces": [
     "projects\\tutorial-app",
-    "projects\\first-app"
+    "projects\\first-app",
+    "projects\\one-minute-react"
   ]
 }

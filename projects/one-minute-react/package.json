@@ -1,0 +1,28 @@
+{
+  "name": "one-minute-react",
+  "version": "1.0.0",
+  "description": "Based on React in one minute tutorial",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "debug": "node inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ongzhixian/nodePoc.git"
+  },
+  "keywords": [
+    "react",
+    "tutorial",
+    "one-minute",
+    "node"
+  ],
+  "author": "Zhixian Ong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ongzhixian/nodePoc/issues"
+  },
+  "homepage": "https://github.com/ongzhixian/nodePoc#readme"
+}
