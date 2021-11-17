@@ -10,3 +10,5 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
 
 1.  first-app
 2.  tutorial-app
+    base on: https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
+3.  <second-app>
