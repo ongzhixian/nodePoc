@@ -9,7 +9,15 @@ var fs = require("fs");
 // DELETE	    /api/country/{id}	        Delete country details
 
  
-
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     description: Welcome to swagger-jsdoc!
+ *     responses:
+ *       200:
+ *         description: Returns a mysterious string.
+ */
 router.get('/', function (req, res) {
     res.send('TODO: return list of countries');
 })

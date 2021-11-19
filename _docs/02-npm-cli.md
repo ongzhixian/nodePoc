@@ -31,6 +31,7 @@ Note: That `express` is only installed once into the `node_modules` folder.
 `npm install express -w tutorial-app`
 `npm install express -w first-app`
 `npm install swagger-ui-express -w travel-api`
+`npm install swagger-jsdoc -w travel-api`
 
 ## Run app
 

@@ -20,6 +20,7 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
     feature: 
         a rest api app, 
         swagger, 
+        swagger-jsdoc,
         sqlite3
 
 4.  <a SSE app>
