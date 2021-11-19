@@ -23,6 +23,7 @@
   "workspaces": [
     "projects\\tutorial-app",
     "projects\\first-app",
-    "projects\\one-minute-react"
+    "projects\\one-minute-react",
+    "projects\\travel-api"
   ]
 }

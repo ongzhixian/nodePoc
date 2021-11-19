@@ -16,7 +16,12 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
     See: https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm
     See: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 
-3.  <a rest api app>
+3.  travel-api (server backend for ngLearn's travel-app)
+    feature: 
+        a rest api app, 
+        swagger, 
+        sqlite3
+
 4.  <a SSE app>
 5.  <a websocket app>
 6.  one-minute-react (npm init -w ./projects/one-minute-react)
@@ -28,3 +33,4 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
         3.  index3.html
             Basic React app using JSX component in another file.
 7.  <a cucumber app>
+8.  <a rest app based on restify>
