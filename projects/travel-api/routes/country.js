@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var fs = require("fs");
+var travelService = require('../services/TravelService');
 
 // HTTP Verb    Path	                    Function
 // GET	        /api/country	            Return all countries
@@ -19,6 +20,9 @@ var fs = require("fs");
  *         description: Returns a mysterious string.
  */
 router.get('/', function (req, res) {
+    // let travelService = new TravelService();
+    travelService.findCountries('s');
+    // TravelService.makeTable();
     res.send('TODO: return list of countries');
 })
 

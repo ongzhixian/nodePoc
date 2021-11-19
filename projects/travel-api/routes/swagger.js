@@ -11,13 +11,14 @@ const swaggerUi = require('swagger-ui-express');
 // router.get('/', swaggerUi.setup(swaggerDocument));
 
 // Use this block if we are using swaggerJSDoc to generate a specification file.
+
 const swaggerJsdoc = require('swagger-jsdoc');
 
 const options = {
     definition: {
       openapi: '3.0.0',
       info: {
-        title: 'Hello World',
+        title: 'Travel-API',
         version: '1.0.0',
       },
     },
