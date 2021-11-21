@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var fs = require("fs");
 var travelService = require('../services/TravelService');
+var countryService = require('../services/CountryService');
 
 // HTTP Verb    Path	                    Function
 // GET	        /api/country	            Return all countries
@@ -19,15 +20,28 @@ var travelService = require('../services/TravelService');
  *       200:
  *         description: Returns a mysterious string.
  */
-router.get('/', function (req, res) {
-    // let travelService = new TravelService();
-    travelService.findCountries('s');
-    // TravelService.makeTable();
-    res.send('TODO: return list of countries');
+router.get('/', async function (req, res) {
+    
+    const STARTS_WITH = 'startswith'
+
+    let startsWith = '';
+
+    if (STARTS_WITH in req.query)
+        startsWith = req.query[STARTS_WITH];
+
+    res.send(await countryService.getCountries(startsWith));
 })
 
-router.get('/:id', function (req, res) {
-    res.send('TODO: return specific country');
+router.get('/:id', async function (req, res) {
+    
+    const PARAM_ID = 'id';
+    
+    let id = ''
+
+    if (PARAM_ID in req.params)
+        id = req.params[PARAM_ID];
+
+    res.send(await countryService.getCountry(id));
 })
 
 router.post('/', function (req, res) {
