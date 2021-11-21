@@ -1,0 +1,293 @@
+# Sqlite notes
+
+## Data storage classes
+
+NULL    - Value is NULL
+INTEGER - Value is signed integer (stored in 1/2/3/4/6/8 bytes depending on the magnitude of the value).
+REAL    - Value is floating-point value (stored as an 8-byte IEEE floating point number).
+TEXT    - Value is text string (stored using the database encoding (UTF-8, UTF-16BE or UTF-16LE)).
+BLOB    - Value is blob of data (stored exactly as it was input).
+
+BOOLEAN - Value is stored as integers 0 (false) and 1 (true)
+DATETIME- Value is stored as TEXT, REAL, or INTEGER values:
+        - TEXT as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS").
+        - REAL as Julian day numbers (the number of days since noon in Greenwich on November 24, 4714 B.C.)
+        - INTEGER as Unix Time, the number of seconds since 1970-01-01 00:00:00 UTC.
+
+
+## CREATE TABLE
+
+```sql
+CREATE TABLE "user" (
+	"id"	INTEGER,
+	"username"	TEXT NOT NULL UNIQUE,
+    "password_salt"	TEXT,
+	"password_hash"	TEXT,
+    "email"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+```
+
+```sql:ISO-3166 Country-codes
+CREATE TABLE "country" (
+	"id"	INTEGER,
+	"country_name"	TEXT,
+	"english_name"	TEXT,
+    "french_name"	TEXT,
+    "alpha2"	TEXT,
+    "alpha3"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+```
+
+```sql:insert statements
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (4, 'Afghanistan', 'Afghanistan', 'Afghanistan (l'')', 'AF', 'AFG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (8, 'Albania', 'Albania', 'Albanie (l'')', 'AL', 'ALB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (12, 'Algeria', 'Algeria', 'Algérie (l'')', 'DZ', 'DZA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (16, 'American Samoa', 'American Samoa', 'Samoa américaines (les)', 'AS', 'ASM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (20, 'Andorra', 'Andorra', 'Andorre (l'')', 'AD', 'AND');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (24, 'Angola', 'Angola', 'Angola (l'')', 'AO', 'AGO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (660, 'Anguilla', 'Anguilla', 'Anguilla', 'AI', 'AIA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (10, 'Antarctica', 'Antarctica', 'Antarctique (l'')', 'AQ', 'ATA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (28, 'Antigua and Barbuda', 'Antigua and Barbuda', 'Antigua-et-Barbuda', 'AG', 'ATG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (32, 'Argentina', 'Argentina', 'Argentine (l'')', 'AR', 'ARG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (51, 'Armenia', 'Armenia', 'Arménie (l'')', 'AM', 'ARM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (533, 'Aruba', 'Aruba', 'Aruba', 'AW', 'ABW');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (36, 'Australia', 'Australia', 'Australie (l'')', 'AU', 'AUS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (40, 'Austria', 'Austria', 'Autriche (l'')', 'AT', 'AUT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (31, 'Azerbaijan', 'Azerbaijan', 'Azerbaïdjan (l'')', 'AZ', 'AZE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (44, 'Bahamas', 'Bahamas (the)', 'Bahamas (les)', 'BS', 'BHS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (48, 'Bahrain', 'Bahrain', 'Bahreïn', 'BH', 'BHR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (50, 'Bangladesh', 'Bangladesh', 'Bangladesh (le)', 'BD', 'BGD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (52, 'Barbados', 'Barbados', 'Barbade (la)', 'BB', 'BRB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (112, 'Belarus', 'Belarus', 'Bélarus (le)', 'BY', 'BLR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (56, 'Belgium', 'Belgium', 'Belgique (la)', 'BE', 'BEL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (84, 'Belize', 'Belize', 'Belize (le)', 'BZ', 'BLZ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (204, 'Benin', 'Benin', 'Bénin (le)', 'BJ', 'BEN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (60, 'Bermuda', 'Bermuda', 'Bermudes (les)', 'BM', 'BMU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (64, 'Bhutan', 'Bhutan', 'Bhoutan (le)', 'BT', 'BTN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (68, 'Bolivia', 'Bolivia (Plurinational State of)', 'Bolivie (État plurinational de)', 'BO', 'BOL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (535, 'Bonaire', 'Bonaire, Sint Eustatius and Saba', 'Bonaire, Saint-Eustache et Saba', 'BQ', 'BES');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (70, 'Bosnia and Herzegovina', 'Bosnia and Herzegovina', 'Bosnie-Herzégovine (la)', 'BA', 'BIH');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (72, 'Botswana', 'Botswana', 'Botswana (le)', 'BW', 'BWA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (74, 'Bouvet Island', 'Bouvet Island', 'Bouvet (l''Île)', 'BV', 'BVT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (76, 'Brazil', 'Brazil', 'Brésil (le)', 'BR', 'BRA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (86, 'British Indian Ocean Territory', 'British Indian Ocean Territory (the)', 'Indien (le Territoire britannique de l''océan)', 'IO', 'IOT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (96, 'Brunei Darussalam', 'Brunei Darussalam', 'Brunéi Darussalam (le)', 'BN', 'BRN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (100, 'Bulgaria', 'Bulgaria', 'Bulgarie (la)', 'BG', 'BGR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (854, 'Burkina Faso', 'Burkina Faso', 'Burkina Faso (le)', 'BF', 'BFA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (108, 'Burundi', 'Burundi', 'Burundi (le)', 'BI', 'BDI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (132, 'Cabo Verde', 'Cabo Verde', 'Cabo Verde', 'CV', 'CPV');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (116, 'Cambodia', 'Cambodia', 'Cambodge (le)', 'KH', 'KHM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (120, 'Cameroon', 'Cameroon', 'Cameroun (le)', 'CM', 'CMR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (124, 'Canada', 'Canada', 'Canada (le)', 'CA', 'CAN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (136, 'Cayman Islands', 'Cayman Islands (the)', 'Caïmans (les Îles)', 'KY', 'CYM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (140, 'Central African Republic', 'Central African Republic (the)', 'République centrafricaine (la)', 'CF', 'CAF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (148, 'Chad', 'Chad', 'Tchad (le)', 'TD', 'TCD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (152, 'Chile', 'Chile', 'Chili (le)', 'CL', 'CHL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (156, 'China', 'China', 'Chine (la)', 'CN', 'CHN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (162, 'Christmas Island', 'Christmas Island', 'Christmas (l''Île)', 'CX', 'CXR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (166, 'Cocos Islands', 'Cocos (Keeling) Islands (the)', 'Cocos (les Îles)/ Keeling (les Îles)', 'CC', 'CCK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (170, 'Colombia', 'Colombia', 'Colombie (la)', 'CO', 'COL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (174, 'Comoros', 'Comoros (the)', 'Comores (les)', 'KM', 'COM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (180, 'Congo (Democratic Republic)', 'Congo (the Democratic Republic of the)', 'Congo (la République démocratique du)', 'CD', 'COD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (178, 'Congo', 'Congo (the)', 'Congo (le)', 'CG', 'COG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (184, 'Cook Islands', 'Cook Islands (the)', 'Cook (les Îles)', 'CK', 'COK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (188, 'Costa Rica', 'Costa Rica', 'Costa Rica (le)', 'CR', 'CRI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (191, 'Croatia', 'Croatia', 'Croatie (la)', 'HR', 'HRV');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (192, 'Cuba', 'Cuba', 'Cuba', 'CU', 'CUB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (531, 'Curaçao', 'Curaçao', 'Curaçao', 'CW', 'CUW');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (196, 'Cyprus', 'Cyprus', 'Chypre', 'CY', 'CYP');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (203, 'Czechia', 'Czechia', 'Tchéquie (la)', 'CZ', 'CZE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (384, 'Côte d''Ivoire', 'Côte d''Ivoire', 'Côte d''Ivoire (la)', 'CI', 'CIV');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (208, 'Denmark', 'Denmark', 'Danemark (le)', 'DK', 'DNK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (262, 'Djibouti', 'Djibouti', 'Djibouti', 'DJ', 'DJI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (212, 'Dominica', 'Dominica', 'Dominique (la)', 'DM', 'DMA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (214, 'Dominican Republic', 'Dominican Republic (the)', 'dominicaine (la République)', 'DO', 'DOM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (218, 'Ecuador', 'Ecuador', 'Équateur (l'')', 'EC', 'ECU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (818, 'Egypt', 'Egypt', 'Égypte (l'')', 'EG', 'EGY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (222, 'El Salvador', 'El Salvador', 'El Salvador', 'SV', 'SLV');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (226, 'Equatorial Guinea', 'Equatorial Guinea', 'Guinée équatoriale (la)', 'GQ', 'GNQ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (232, 'Eritrea', 'Eritrea', 'Érythrée (l'')', 'ER', 'ERI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (233, 'Estonia', 'Estonia', 'Estonie (l'')', 'EE', 'EST');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (748, 'Eswatini', 'Eswatini', 'Eswatini (l'')', 'SZ', 'SWZ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (231, 'Ethiopia', 'Ethiopia', 'Éthiopie (l'')', 'ET', 'ETH');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (238, 'Falkland Islands', 'Falkland Islands (the) [Malvinas]', 'Falkland (les Îles)/Malouines (les Îles)', 'FK', 'FLK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (234, 'Faroe Islands', 'Faroe Islands (the)', 'Féroé (les Îles)', 'FO', 'FRO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (242, 'Fiji', 'Fiji', 'Fidji (les)', 'FJ', 'FJI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (246, 'Finland', 'Finland', 'Finlande (la)', 'FI', 'FIN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (250, 'France', 'France', 'France (la)', 'FR', 'FRA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (254, 'French Guiana', 'French Guiana', 'Guyane française (la )', 'GF', 'GUF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (258, 'French Polynesia', 'French Polynesia', 'Polynésie française (la)', 'PF', 'PYF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (260, 'French Southern Territories', 'French Southern Territories (the)', 'Terres australes françaises (les)', 'TF', 'ATF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (266, 'Gabon', 'Gabon', 'Gabon (le)', 'GA', 'GAB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (270, 'Gambia', 'Gambia (the)', 'Gambie (la)', 'GM', 'GMB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (268, 'Georgia', 'Georgia', 'Géorgie (la)', 'GE', 'GEO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (276, 'Germany', 'Germany', 'Allemagne (l'')', 'DE', 'DEU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (288, 'Ghana', 'Ghana', 'Ghana (le)', 'GH', 'GHA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (292, 'Gibraltar', 'Gibraltar', 'Gibraltar', 'GI', 'GIB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (300, 'Greece', 'Greece', 'Grèce (la)', 'GR', 'GRC');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (304, 'Greenland', 'Greenland', 'Groenland (le)', 'GL', 'GRL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (308, 'Grenada', 'Grenada', 'Grenade (la)', 'GD', 'GRD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (312, 'Guadeloupe', 'Guadeloupe', 'Guadeloupe (la)', 'GP', 'GLP');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (316, 'Guam', 'Guam', 'Guam', 'GU', 'GUM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (320, 'Guatemala', 'Guatemala', 'Guatemala (le)', 'GT', 'GTM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (831, 'Guernsey', 'Guernsey', 'Guernesey', 'GG', 'GGY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (324, 'Guinea', 'Guinea', 'Guinée (la)', 'GN', 'GIN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (624, 'Guinea-Bissau', 'Guinea-Bissau', 'Guinée-Bissau (la)', 'GW', 'GNB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (328, 'Guyana', 'Guyana', 'Guyana (le)', 'GY', 'GUY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (332, 'Haiti', 'Haiti', 'Haïti', 'HT', 'HTI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (334, 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', 'Heard-et-Îles MacDonald (l''Île)', 'HM', 'HMD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (336, 'Holy See', 'Holy See (the)', 'Saint-Siège (le)', 'VA', 'VAT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (340, 'Honduras', 'Honduras', 'Honduras (le)', 'HN', 'HND');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (344, 'Hong Kong', 'Hong Kong', 'Hong Kong', 'HK', 'HKG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (348, 'Hungary', 'Hungary', 'Hongrie (la)', 'HU', 'HUN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (352, 'Iceland', 'Iceland', 'Islande (l'')', 'IS', 'ISL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (356, 'India', 'India', 'Inde (l'')', 'IN', 'IND');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (360, 'Indonesia', 'Indonesia', 'Indonésie (l'')', 'ID', 'IDN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (364, 'Iran', 'Iran (Islamic Republic of)', 'Iran (République Islamique d'')', 'IR', 'IRN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (368, 'Iraq', 'Iraq', 'Iraq (l'')', 'IQ', 'IRQ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (372, 'Ireland', 'Ireland', 'Irlande (l'')', 'IE', 'IRL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (833, 'Isle of Man', 'Isle of Man', 'Île de Man', 'IM', 'IMN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (376, 'Israel', 'Israel', 'Israël', 'IL', 'ISR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (380, 'Italy', 'Italy', 'Italie (l'')', 'IT', 'ITA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (388, 'Jamaica', 'Jamaica', 'Jamaïque (la)', 'JM', 'JAM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (392, 'Japan', 'Japan', 'Japon (le)', 'JP', 'JPN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (832, 'Jersey', 'Jersey', 'Jersey', 'JE', 'JEY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (400, 'Jordan', 'Jordan', 'Jordanie (la)', 'JO', 'JOR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (398, 'Kazakhstan', 'Kazakhstan', 'Kazakhstan (le)', 'KZ', 'KAZ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (404, 'Kenya', 'Kenya', 'Kenya (le)', 'KE', 'KEN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (296, 'Kiribati', 'Kiribati', 'Kiribati', 'KI', 'KIR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (408, 'Korea (Democratic People''s Republic)', 'Korea (the Democratic People''s Republic of)', 'Corée (la République populaire démocratique de)', 'KP', 'PRK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (410, 'Korea (Republic)', 'Korea (the Republic of)', 'Corée (la République de)', 'KR', 'KOR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (414, 'Kuwait', 'Kuwait', 'Koweït (le)', 'KW', 'KWT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (417, 'Kyrgyzstan', 'Kyrgyzstan', 'Kirghizistan (le)', 'KG', 'KGZ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (418, 'Lao People''s Democratic Republic', 'Lao People''s Democratic Republic (the)', 'Lao (la République démocratique populaire)', 'LA', 'LAO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (428, 'Latvia', 'Latvia', 'Lettonie (la)', 'LV', 'LVA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (422, 'Lebanon', 'Lebanon', 'Liban (le)', 'LB', 'LBN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (426, 'Lesotho', 'Lesotho', 'Lesotho (le)', 'LS', 'LSO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (430, 'Liberia', 'Liberia', 'Libéria (le)', 'LR', 'LBR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (434, 'Libya', 'Libya', 'Libye (la)', 'LY', 'LBY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (438, 'Liechtenstein', 'Liechtenstein', 'Liechtenstein (le)', 'LI', 'LIE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (440, 'Lithuania', 'Lithuania', 'Lituanie (la)', 'LT', 'LTU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (442, 'Luxembourg', 'Luxembourg', 'Luxembourg (le)', 'LU', 'LUX');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (446, 'Macao', 'Macao', 'Macao', 'MO', 'MAC');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (450, 'Madagascar', 'Madagascar', 'Madagascar', 'MG', 'MDG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (454, 'Malawi', 'Malawi', 'Malawi (le)', 'MW', 'MWI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (458, 'Malaysia', 'Malaysia', 'Malaisie (la)', 'MY', 'MYS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (462, 'Maldives', 'Maldives', 'Maldives (les)', 'MV', 'MDV');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (466, 'Mali', 'Mali', 'Mali (le)', 'ML', 'MLI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (470, 'Malta', 'Malta', 'Malte', 'MT', 'MLT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (584, 'Marshall Islands', 'Marshall Islands (the)', 'Marshall (les Îles)', 'MH', 'MHL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (474, 'Martinique', 'Martinique', 'Martinique (la)', 'MQ', 'MTQ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (478, 'Mauritania', 'Mauritania', 'Mauritanie (la)', 'MR', 'MRT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (480, 'Mauritius', 'Mauritius', 'Maurice', 'MU', 'MUS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (175, 'Mayotte', 'Mayotte', 'Mayotte', 'YT', 'MYT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (484, 'Mexico', 'Mexico', 'Mexique (le)', 'MX', 'MEX');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (583, 'Micronesia', 'Micronesia (Federated States of)', 'Micronésie (États fédérés de)', 'FM', 'FSM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (498, 'Moldova', 'Moldova (the Republic of)', 'Moldova (la République de)', 'MD', 'MDA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (492, 'Monaco', 'Monaco', 'Monaco', 'MC', 'MCO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (496, 'Mongolia', 'Mongolia', 'Mongolie (la)', 'MN', 'MNG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (499, 'Montenegro', 'Montenegro', 'Monténégro (le)', 'ME', 'MNE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (500, 'Montserrat', 'Montserrat', 'Montserrat', 'MS', 'MSR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (504, 'Morocco', 'Morocco', 'Maroc (le)', 'MA', 'MAR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (508, 'Mozambique', 'Mozambique', 'Mozambique (le)', 'MZ', 'MOZ');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (104, 'Myanmar', 'Myanmar', 'Myanmar (le)', 'MM', 'MMR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (516, 'Namibia', 'Namibia', 'Namibie (la)', 'NA', 'NAM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (520, 'Nauru', 'Nauru', 'Nauru', 'NR', 'NRU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (524, 'Nepal', 'Nepal', 'Népal (le)', 'NP', 'NPL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (528, 'Netherlands', 'Netherlands (the)', 'Pays-Bas (les)', 'NL', 'NLD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (540, 'New Caledonia', 'New Caledonia', 'Nouvelle-Calédonie (la)', 'NC', 'NCL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (554, 'New Zealand', 'New Zealand', 'Nouvelle-Zélande (la)', 'NZ', 'NZL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (558, 'Nicaragua', 'Nicaragua', 'Nicaragua (le)', 'NI', 'NIC');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (562, 'Niger', 'Niger (the)', 'Niger (le)', 'NE', 'NER');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (566, 'Nigeria', 'Nigeria', 'Nigéria (le)', 'NG', 'NGA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (570, 'Niue', 'Niue', 'Niue', 'NU', 'NIU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (574, 'Norfolk Island', 'Norfolk Island', 'Norfolk (l''Île)', 'NF', 'NFK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (807, 'North Macedonia', 'North Macedonia', 'Macédoine du Nord (la)', 'MK', 'MKD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (580, 'Northern Mariana Islands', 'Northern Mariana Islands (the)', 'Mariannes du Nord (les Îles)', 'MP', 'MNP');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (578, 'Norway', 'Norway', 'Norvège (la)', 'NO', 'NOR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (512, 'Oman', 'Oman', 'Oman', 'OM', 'OMN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (586, 'Pakistan', 'Pakistan', 'Pakistan (le)', 'PK', 'PAK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (585, 'Palau', 'Palau', 'Palaos (les)', 'PW', 'PLW');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (275, 'Palestine', 'Palestine, State of', 'Palestine, État de', 'PS', 'PSE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (591, 'Panama', 'Panama', 'Panama (le)', 'PA', 'PAN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (598, 'Papua New Guinea', 'Papua New Guinea', 'Papouasie-Nouvelle-Guinée (la)', 'PG', 'PNG');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (600, 'Paraguay', 'Paraguay', 'Paraguay (le)', 'PY', 'PRY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (604, 'Peru', 'Peru', 'Pérou (le)', 'PE', 'PER');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (608, 'Philippines', 'Philippines (the)', 'Philippines (les)', 'PH', 'PHL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (612, 'Pitcairn', 'Pitcairn', 'Pitcairn', 'PN', 'PCN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (616, 'Poland', 'Poland', 'Pologne (la)', 'PL', 'POL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (620, 'Portugal', 'Portugal', 'Portugal (le)', 'PT', 'PRT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (630, 'Puerto Rico', 'Puerto Rico', 'Porto Rico', 'PR', 'PRI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (634, 'Qatar', 'Qatar', 'Qatar (le)', 'QA', 'QAT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (642, 'Romania', 'Romania', 'Roumanie (la)', 'RO', 'ROU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (643, 'Russian Federation', 'Russian Federation (the)', 'Russie (la Fédération de)', 'RU', 'RUS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (646, 'Rwanda', 'Rwanda', 'Rwanda (le)', 'RW', 'RWA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (638, 'Réunion', 'Réunion', 'Réunion (La)', 'RE', 'REU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (652, 'Saint Barthélemy', 'Saint Barthélemy', 'Saint-Barthélemy', 'BL', 'BLM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (654, 'Saint Helena', 'Saint Helena, Ascension and Tristan da Cunha', 'Sainte-Hélène, Ascension et Tristan da Cunha', 'SH', 'SHN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (659, 'Saint Kitts and Nevis', 'Saint Kitts and Nevis', 'Saint-Kitts-et-Nevis', 'KN', 'KNA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (662, 'Saint Lucia', 'Saint Lucia', 'Sainte-Lucie', 'LC', 'LCA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (663, 'Saint Martin', 'Saint Martin (French part)', 'Saint-Martin (partie française)', 'MF', 'MAF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (666, 'Saint Pierre and Miquelon', 'Saint Pierre and Miquelon', 'Saint-Pierre-et-Miquelon', 'PM', 'SPM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (670, 'Saint Vincent and the Grenadines', 'Saint Vincent and the Grenadines', 'Saint-Vincent-et-les Grenadines', 'VC', 'VCT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (882, 'Samoa', 'Samoa', 'Samoa (le)', 'WS', 'WSM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (674, 'San Marino', 'San Marino', 'Saint-Marin', 'SM', 'SMR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (678, 'Sao Tome and Principe', 'Sao Tome and Principe', 'Sao Tomé-et-Principe', 'ST', 'STP');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (682, 'Saudi Arabia', 'Saudi Arabia', 'Arabie saoudite (l'')', 'SA', 'SAU');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (686, 'Senegal', 'Senegal', 'Sénégal (le)', 'SN', 'SEN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (688, 'Serbia', 'Serbia', 'Serbie (la)', 'RS', 'SRB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (690, 'Seychelles', 'Seychelles', 'Seychelles (les)', 'SC', 'SYC');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (694, 'Sierra Leone', 'Sierra Leone', 'Sierra Leone (la)', 'SL', 'SLE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (702, 'Singapore', 'Singapore', 'Singapour', 'SG', 'SGP');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (534, 'Sint Maarten', 'Sint Maarten (Dutch part)', 'Saint-Martin (partie néerlandaise)', 'SX', 'SXM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (703, 'Slovakia', 'Slovakia', 'Slovaquie (la)', 'SK', 'SVK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (705, 'Slovenia', 'Slovenia', 'Slovénie (la)', 'SI', 'SVN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (90, 'Solomon Islands', 'Solomon Islands', 'Salomon (les Îles)', 'SB', 'SLB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (706, 'Somalia', 'Somalia', 'Somalie (la)', 'SO', 'SOM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (710, 'South Africa', 'South Africa', 'Afrique du Sud (l'')', 'ZA', 'ZAF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (239, 'South Georgia and the South Sandwich Islands', 'South Georgia and the South Sandwich Islands', 'Géorgie du Sud-et-les Îles Sandwich du Sud (la)', 'GS', 'SGS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (728, 'South Sudan', 'South Sudan', 'Soudan du Sud (le)', 'SS', 'SSD');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (724, 'Spain', 'Spain', 'Espagne (l'')', 'ES', 'ESP');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (144, 'Sri Lanka', 'Sri Lanka', 'Sri Lanka', 'LK', 'LKA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (729, 'Sudan', 'Sudan (the)', 'Soudan (le)', 'SD', 'SDN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (740, 'Suriname', 'Suriname', 'Suriname (le)', 'SR', 'SUR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (744, 'Svalbard and Jan Mayen', 'Svalbard and Jan Mayen', 'Svalbard et l''Île Jan Mayen (le)', 'SJ', 'SJM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (752, 'Sweden', 'Sweden', 'Suède (la)', 'SE', 'SWE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (756, 'Switzerland', 'Switzerland', 'Suisse (la)', 'CH', 'CHE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (760, 'Syrian Arab Republic', 'Syrian Arab Republic (the)', 'République arabe syrienne (la)', 'SY', 'SYR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (158, 'Taiwan', 'Taiwan (Province of China)', 'Taïwan (Province de Chine)', 'TW', 'TWN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (762, 'Tajikistan', 'Tajikistan', 'Tadjikistan (le)', 'TJ', 'TJK');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (834, 'Tanzania', 'Tanzania, the United Republic of', 'Tanzanie (la République-Unie de)', 'TZ', 'TZA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (764, 'Thailand', 'Thailand', 'Thaïlande (la)', 'TH', 'THA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (626, 'Timor-Leste', 'Timor-Leste', 'Timor-Leste (le)', 'TL', 'TLS');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (768, 'Togo', 'Togo', 'Togo (le)', 'TG', 'TGO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (772, 'Tokelau', 'Tokelau', 'Tokelau (les)', 'TK', 'TKL');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (776, 'Tonga', 'Tonga', 'Tonga (les)', 'TO', 'TON');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (780, 'Trinidad and Tobago', 'Trinidad and Tobago', 'Trinité-et-Tobago (la)', 'TT', 'TTO');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (788, 'Tunisia', 'Tunisia', 'Tunisie (la)', 'TN', 'TUN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (792, 'Turkey', 'Turkey', 'Turquie (la)', 'TR', 'TUR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (795, 'Turkmenistan', 'Turkmenistan', 'Turkménistan (le)', 'TM', 'TKM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (796, 'Turks and Caicos Islands', 'Turks and Caicos Islands (the)', 'Turks-et-Caïcos (les Îles)', 'TC', 'TCA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (798, 'Tuvalu', 'Tuvalu', 'Tuvalu (les)', 'TV', 'TUV');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (800, 'Uganda', 'Uganda', 'Ouganda (l'')', 'UG', 'UGA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (804, 'Ukraine', 'Ukraine', 'Ukraine (l'')', 'UA', 'UKR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (784, 'United Arab Emirates', 'United Arab Emirates (the)', 'Émirats arabes unis (les)', 'AE', 'ARE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (826, 'United Kingdom of Great Britain and Northern Ireland', 'United Kingdom of Great Britain and Northern Ireland (the)', 'Royaume-Uni de Grande-Bretagne et d''Irlande du Nord (le)', 'GB', 'GBR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (581, 'United States Minor Outlying Islands', 'United States Minor Outlying Islands (the)', 'Îles mineures éloignées des États-Unis (les)', 'UM', 'UMI');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (840, 'United States of America', 'United States of America (the)', 'États-Unis d''Amérique (les)', 'US', 'USA');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (858, 'Uruguay', 'Uruguay', 'Uruguay (l'')', 'UY', 'URY');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (860, 'Uzbekistan', 'Uzbekistan', 'Ouzbékistan (l'')', 'UZ', 'UZB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (548, 'Vanuatu', 'Vanuatu', 'Vanuatu (le)', 'VU', 'VUT');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (862, 'Venezuela', 'Venezuela (Bolivarian Republic of)', 'Venezuela (République bolivarienne du)', 'VE', 'VEN');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (704, 'Viet Nam', 'Viet Nam', 'Viet Nam (le)', 'VN', 'VNM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (92, 'Virgin Islands (British)', 'Virgin Islands (British)', 'Vierges britanniques (les Îles)', 'VG', 'VGB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (850, 'Virgin Islands (U.S.)', 'Virgin Islands (U.S.)', 'Vierges des États-Unis (les Îles)', 'VI', 'VIR');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (876, 'Wallis and Futuna', 'Wallis and Futuna', 'Wallis-et-Futuna', 'WF', 'WLF');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (732, 'Western Sahara', 'Western Sahara*', 'Sahara occidental (le)*', 'EH', 'ESH');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (887, 'Yemen', 'Yemen', 'Yémen (le)', 'YE', 'YEM');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (894, 'Zambia', 'Zambia', 'Zambie (la)', 'ZM', 'ZMB');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (716, 'Zimbabwe', 'Zimbabwe', 'Zimbabwe (le)', 'ZW', 'ZWE');
+INSERT INTO country (id, country_name, english_name, french_name, alpha2, alpha3) VALUES (248, 'Åland Islands', 'Åland Islands', 'Åland(les Îles)', 'AX', 'ALA');
+```
