@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ongzhixian/nodePoc#readme",
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "sqlite3": "^5.0.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6"
