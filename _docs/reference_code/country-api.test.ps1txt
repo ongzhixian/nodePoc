@@ -1,0 +1,145 @@
+# Powershell script to demostrate black box testing
+
+Describe 'CountryService tests' {
+
+    $base_url = "http://localhost:8081"
+    
+    BeforeAll {
+        # Write-Host "Before ANY CountryService tests are execute..."
+    }
+
+    BeforeEach {
+        # Write-Host "Before EACH CountryService test are execute..."
+    }
+
+    Context "HTTP GET $base_url/country" {
+        
+        BeforeAll {
+            # Before we assert anything, do test first
+            # Write-Host "Before ANY 'HTTP GET /country' tests are execute"
+            # Write-Host "`tHTTP GET $url"
+
+            $url = "$base_url/country"
+
+            $b = @"
+[{"id":1,"country_name":"Malaysia"},{"id":222,"country_name":"Malaysia"},{"id":12,"country_name":"Singapore"},{"id":23,"country_name":"Singapore"},{"id":223,"country_name":"Singapore"}]
+"@ | ConvertFrom-Json
+            
+
+            Mock -CommandName Invoke-RestMethod -Verifiable -MockWith {
+                return @{
+                  Content    = $resources.v1.SuccessMock
+                  StatusCode = $resources.v1.SuccessCode
+                }
+            } -ParameterFilter {
+                $uri -match $uri -and $Method -eq "POST"
+            }
+
+
+            # This is integrated test; let's do a mock
+            $a = Invoke-RestMethod -Method 'Get' -Uri $url
+
+            
+        }
+
+        BeforeEach {
+            # Write-Host "Before EACH 'HTTP GET /country' test is execute"
+        }
+
+        It "should have at least 1 record" {
+            # Arrange
+            Mock -CommandName Invoke-RestMethod -Verifiable -MockWith {
+                return @"
+                [{"id":1,"country_name":"Malaysia"},{"id":222,"country_name":"Malaysia"},{"id":12,"country_name":"Singapore"},{"id":23,"country_name":"Singapore"},{"id":223,"country_name":"Singapore"}]
+"@ | ConvertFrom-Json                            
+            } -ParameterFilter {
+                $uri -match $uri -and $Method -eq "Get"
+            }
+            
+            # Act
+            $a = Invoke-RestMethod -Method 'Get' -Uri $url
+
+            # Assert(s)
+            # $true | Should Be $true
+            $a.Length | Should BeGreaterThan  0
+
+            # Note: In newer versions of Pester, there's a BeGreaterOrEqual operator.
+            # For list of assertions available in Pester 3.4 see: C:\Program Files\WindowsPowerShell\Modules\Pester\3.4.0\Functions\Assertions            
+        }
+
+        It 'should have [id] field' { 
+            # Arrange
+            Mock -CommandName Invoke-RestMethod -Verifiable -MockWith {
+                return @"
+                [{"id":1,"country_name":"Malaysia"},{"id":222,"country_name":"Malaysia"},{"id":12,"country_name":"Singapore"},{"id":23,"country_name":"Singapore"},{"id":223,"country_name":"Singapore"}]
+"@ | ConvertFrom-Json                            
+            } -ParameterFilter {
+                $uri -match $uri -and $Method -eq "Get"
+            }
+            
+            # Act
+            $a = Invoke-RestMethod -Method 'Get' -Uri $url
+
+            # Asserts
+            # $true | Should Be $true
+            ($a | gm | ? { $_.Name -eq "id" }) -ne $null | Should Be $true
+        }
+
+        It 'should have [country_name] field' { 
+            # ...
+            # Arrange
+            Mock -CommandName Invoke-RestMethod -Verifiable -MockWith {
+                return @"
+                [{"id":1,"country_name":"Malaysia"},{"id":222,"country_name":"Malaysia"},{"id":12,"country_name":"Singapore"},{"id":23,"country_name":"Singapore"},{"id":223,"country_name":"Singapore"}]
+"@ | ConvertFrom-Json                            
+            } -ParameterFilter {
+                $uri -match $uri -and $Method -eq "Get"
+            }
+            
+            # Act
+            $a = Invoke-RestMethod -Method 'Get' -Uri $url
+
+            # Asserts
+            # $true | Should Be $true
+            ($a | gm | ? { $_.Name -eq "country_name" }) -ne $null | Should Be $true
+
+            # Another way to test if object has a property named
+            # if (Get-Member -inputobject $var -name "country_name" -Membertype Properties){
+            #     #Property exists
+            #     }
+        }
+    }
+
+    Context 'HTTP GET /country/Singapore' { 
+
+        BeforeAll {
+            # Write-Host "Before ANY 'HTTP GET /country/Singapore' tests are execute"
+        }
+
+        BeforeEach {
+            # Write-Host "Before EACH 'HTTP GET /country/Singapore' test is execute"
+        }
+
+        It 'filters based on planet Name' {
+            # ...
+            # Arrange
+            Mock -CommandName Invoke-RestMethod -Verifiable -MockWith {
+                return @"
+                [{"id":1,"country_name":"Malaysia"},{"id":222,"country_name":"Malaysia"},{"id":12,"country_name":"Singapore"},{"id":23,"country_name":"Singapore"},{"id":223,"country_name":"Singapore"}]
+"@ | ConvertFrom-Json                            
+            } -ParameterFilter {
+                $uri -match $uri -and $Method -eq "Get"
+            }
+            
+            # Act
+            $a = Invoke-RestMethod -Method 'Get' -Uri $url
+
+            # Asserts
+                        
+            $url = "$base_url/country/Singapore"
+            $a = Invoke-RestMethod -Method 'Get' -Uri $url
+
+            $true | Should Be $true
+        }
+    }
+}

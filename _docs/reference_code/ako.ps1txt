@@ -1,0 +1,22 @@
+
+
+# $Cred = Get-Credential
+$url = "https://server.contoso.com:8089/services/search/jobs/export"
+
+$headers = @{
+    'userId' = 'UserIDValue'
+    'token' = 'TokenValue'
+}
+$body = @{
+    search = "search index=_internal | reverse | table index,host,source,sourcetype,_raw"
+    output_mode = "csv"
+    earliest_time = "-2d@d"
+    latest_time = "-1d@d"
+}
+
+# Invoke-RestMethod -Method 'Post' -Uri $url -Credential $Cred -Body $body -OutFile output.csv
+# Invoke-RestMethod -Uri $uri -Method Post -Headers $headers -Body $body
+
+$url = "http://localhost:8081/country"
+$a = Invoke-RestMethod -Method 'Post' -Uri $url -Body $body
+$a
