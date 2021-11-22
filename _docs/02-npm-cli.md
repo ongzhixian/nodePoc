@@ -75,6 +75,11 @@ amend the `package.json` file in the root folder such that it reads:
 
 That way, you can enter `npm start` in the root folder to run your application.
 
+To run the application with NODE_ENV set to production: 
+
+`npm start --workspace=travel-api --production`
+
+Without the `--production` flag, NODE_ENV is undefined (and presumably run in non-production mode (whatever that means)).
 
 ## Test
 
