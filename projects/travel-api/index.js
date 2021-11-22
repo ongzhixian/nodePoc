@@ -1,8 +1,13 @@
 'use strict';
 var express = require('express');
 var app = express();
+var settings = require('./services/AppConfigurationService');
 
 var server;
+
+// 'settings' usage example
+console.log("Mode: [%s]", settings['mode']);
+// console.log(settings.mode); // Alternate syntax
 
 // Add routes defined in other files
 // Reminder: Order of routes matters in Express
