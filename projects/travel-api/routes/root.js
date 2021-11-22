@@ -21,4 +21,13 @@ router.get('/favicon.ico', (req, res) => {
 // });
 
 
+// Handling non matching request from the client
+
+router.use((req, res, next) => {
+    res.status(404).end();
+    // Or use below if we want to display a text message
+    // res.status(404).send("<h1>Requested resource not found on the server</h1>")
+})
+
+
 module.exports = router;
