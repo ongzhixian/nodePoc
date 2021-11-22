@@ -23,5 +23,9 @@ Run tests in specific workspace:
 --OR--
 `npm run test --workspace=travel-api`
 
+Display test coverage:
+
+`npm test --workspace=travel-api -- --coverage`
+
 ## Tests
 

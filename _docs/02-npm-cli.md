@@ -104,6 +104,10 @@ Run test on specific workspace.
 --OR--
 `npm test --workspace=travel-api`
 
+Display test coverage.
+
+`npm test --workspace=travel-api -- --coverage`
+
 Test the specified 2 workspaces.
 
 `npm run test --workspace=first-app --workspace=tutorial-app`
@@ -115,3 +119,4 @@ Test all workspaces.
 Test only if 'test' script is defined in 'package.json'.
 
 `npm run test --workspaces --if-present`
+
