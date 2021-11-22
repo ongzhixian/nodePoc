@@ -33,6 +33,8 @@ Note: That `express` is only installed once into the `node_modules` folder.
 `npm install swagger-ui-express -w travel-api`
 `npm install swagger-jsdoc -w travel-api`
 `npm install sqlite3 -w travel-api`
+`npm install jsonwebtoken -w travel-api`
+`npm install --save-dev jest --workspace=travel-api`
 
 ## Run app
 
@@ -85,6 +87,22 @@ This also means that if we want to always run in production mode, we should upda
 `"start": "npm start --workspace=first-app --production"`
 
 ## Test
+
+Setup in `package.json`:
+
+  Comment out:
+
+  `"test": "echo \"Error: no test specified\" && exit 1",`
+
+  Replace with:
+
+  `"test": "jest"`
+
+Run test on specific workspace.
+
+`npm run test --workspace=travel-api`
+--OR--
+`npm test --workspace=travel-api`
 
 Test the specified 2 workspaces.
 
