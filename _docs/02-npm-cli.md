@@ -80,6 +80,9 @@ To run the application with NODE_ENV set to production:
 `npm start --workspace=travel-api --production`
 
 Without the `--production` flag, NODE_ENV is undefined (and presumably run in non-production mode (whatever that means)).
+This also means that if we want to always run in production mode, we should update the start script in `package.json` to:
+
+`"start": "npm start --workspace=first-app --production"`
 
 ## Test
 
