@@ -1,9 +1,16 @@
 var fs = require('fs');
 var util = require('util');
+const path = require('path');
 
 class LogService {
 
     constructor(filepath = "./logs/app.log", logToConsole=false) {
+
+        let absoluteLogDirectory = path.dirname(path.resolve(filepath));
+
+        if (!fs.existsSync(absoluteLogDirectory)) {
+            fs.mkdirSync(absoluteLogDirectory, { recursive: true });
+        }
 
         Object.defineProperty(this, 'FILEPATH', {
             value: filepath,
@@ -67,7 +74,7 @@ class LogService {
     }
 }
 
-const log = new LogService("./logs/travel-api.log");
+const log = new LogService("./logs/travel-api.log", true); // TODO: should be made configurable
 
 if (require.main === module) {
     
