@@ -29,6 +29,8 @@ Configure the `package.json` to include a 'jest' section:
 `collectCoverage`   -- always check test coverage
 `coverageReporters` -- generate html report (in a folder called 'coverage')
 
+See: https://jestjs.io/docs/configuration
+
 ## Run tests
 
 Run tests in specific workspace:
