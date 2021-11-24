@@ -194,7 +194,7 @@ npm ERR! 404 Note that you can also install from a
 npm ERR! 404 tarball, folder, http url, or git url.
 ```
 
-In such cases, try:
+In such cases, try (cleaning up the `package-lock.json` file?):
 1.  removing the dependencies from target project's `package.json`
 2.  run `npm install -w travel-api`
 3.  re-add the dependencies to target project's `package.json`
