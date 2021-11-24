@@ -82,6 +82,36 @@ PS>
 
 ## Local test module as a dependency in another Node.js project
 
+A lot blogs got this wrong!
+
+The correct combination is:
+
+`npm install first-lib`
+`npm install first-lib -w travel-api`
+
+
+The first line (`npm install first-lib`) will add a `dependencies` section to the root `package.json` file:
+
+```json
+  "dependencies": {
+    "first-lib": "file:projects/first-lib"
+  }
+```
+
+After which the second line (`npm install first-lib -w travel-api`), will add version to the `package.json` file: 
+
+```json
+  "dependencies": {
+    "first-app": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "sqlite3": "^5.0.2",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+```
+
+
+
 There seems to be a bug with using `npm install` with workspaces for local projects (see section 'Bug?! Do not work' below).
 
 The current correct combination seems to be:
@@ -110,11 +140,11 @@ In the package.json file of the travel-api project add the reference to 'second-
 
 --OR-- just reference the 'first-lib' as file reference without version, like so:
 
-```json
+```json:Wait this is negative example now (see On further investigation in section 'Bug?! Do not work')
   "dependencies": {
     "first-lib": "file:projects/first-lib",
-    "jsonwebtoken": "^8.5.1",
     "second-lib": "file:projects/second-lib",
+    "jsonwebtoken": "^8.5.1",
     "sqlite3": "^5.0.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6"
@@ -122,8 +152,26 @@ In the package.json file of the travel-api project add the reference to 'second-
 ```
 
 Aside: While either of the above works, the second npm command mentioned above will actually write:
+
 ```json
 "first-lib": "file:projects/first-lib",
+```
+
+This will cause the command ` npm install -w travel-api` to fail with the following error:
+
+```cmd
+DESKTOP-NJM00MP>zhixian D:\src\github\nodePoc (main)
+PS> npm install -w travel-api
+npm ERR! Cannot set properties of null (setting 'dev')
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     C:\Users\zhixian\AppData\Local\npm-cache\_logs\2021-11-24T09_19_51_474Z-debug.log
+```
+
+So it might be better execute `npm install -w first-lib` and then update 'package.json' with:
+
+```json
+"first-lib": "^1.0.0",
 ```
 
 ### Bug?! Do not work
@@ -171,6 +219,18 @@ Just do what I suggested above.
 
 See: https://github.com/npm/cli/issues/3847
 See: https://github.com/npm/cli/issues/3711
+
+
+On further investigation, it seems that the error messages is caused by the lines added to the 'package.json' file!
+
+```json:package.json file
+  "dependencies": {
+    ...
+    "first-lib": "file:projects/first-lib",
+    "second-lib": "file:projects/second-lib",
+    ...
+  },
+```
 
 
 ## Usage of libary in another project
