@@ -35,3 +35,5 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
             Basic React app using JSX component in another file.
 7.  <a cucumber app>
 8.  <a rest app based on restify>
+9.  first-lib
+    An example of Node.js library

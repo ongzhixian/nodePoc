@@ -16,6 +16,7 @@ One of the goals of using workspaces is to share the `node_modules` (dependencie
 Otherwise, each project will have its own `node_modules` folder.
 
 `npm init -w ./projects/tutorial-app`
+`npm init -w ./projects/first-lib`
 
 Note: 
     Initially, the example above specifies the workspace as `./projects/node-tutorial-app`.
