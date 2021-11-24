@@ -1,8 +1,9 @@
 {
-  "name": "node-poc",
+  "name": "second-lib",
   "version": "1.0.0",
-  "description": "node Proof-of-Concepts",
+  "description": "A second test library",
   "main": "index.js",
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,21 +12,14 @@
     "url": "git+https://github.com/ongzhixian/nodePoc.git"
   },
   "keywords": [
+    "second-lib",
     "node",
-    "poc"
+    "library"
   ],
   "author": "Zhixian Ong",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ongzhixian/nodePoc/issues"
   },
-  "homepage": "https://github.com/ongzhixian/nodePoc#readme",
-  "workspaces": [
-    "projects\\tutorial-app",
-    "projects\\first-app",
-    "projects\\one-minute-react",
-    "projects\\travel-api",
-    "projects\\first-lib",
-    "projects\\second-lib"
-  ]
+  "homepage": "https://github.com/ongzhixian/nodePoc#readme"
 }
