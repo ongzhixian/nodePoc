@@ -1,8 +1,9 @@
 {
-  "name": "node-poc",
+  "name": "first-lib",
   "version": "1.0.0",
-  "description": "node Proof-of-Concepts",
+  "description": "An example of Node.js library",
   "main": "index.js",
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,20 +12,14 @@
     "url": "git+https://github.com/ongzhixian/nodePoc.git"
   },
   "keywords": [
-    "node",
-    "poc"
+    "example",
+    "node.js",
+    "library"
   ],
   "author": "Zhixian Ong",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ongzhixian/nodePoc/issues"
   },
-  "homepage": "https://github.com/ongzhixian/nodePoc#readme",
-  "workspaces": [
-    "projects\\tutorial-app",
-    "projects\\first-app",
-    "projects\\one-minute-react",
-    "projects\\travel-api",
-    "projects\\first-lib"
-  ]
+  "homepage": "https://github.com/ongzhixian/nodePoc#readme"
 }
