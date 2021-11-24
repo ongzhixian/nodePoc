@@ -13,6 +13,7 @@ console.log("Mode: [%s]", settings['mode']);
 // Reminder: Order of routes matters in Express
 // Order should be from specific to generic
 
+app.use('/test-lib', require('./routes/firstLib.js'));
 app.use('/country', require('./routes/country.js'));
 app.use('/swagger', require('./routes/swagger.js'));
 app.use('/', require('./routes/root.js'));
