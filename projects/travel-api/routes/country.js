@@ -60,6 +60,26 @@ router.delete('/:id', function (req, res) {
 });
 
 
+// The hard way to get request body
+// Previously the 'Express' framework packaged 'body-parser' to parse the request body.
+// But this is no longer the case; we need to manually add 'body-parser' package for the convenience now.
+// This chunk of code demonstrates how to get the request body without using 'body-parser':
+// router.post('/', function (req, res) {
+//     let request_body = '';
+//     req.on('data', buffer => {
+//         request_body += buffer.toString(); // convert Buffer to string
+//     });
+//     req.on('end', () => {
+//         let json_body = JSON.parse(request_body, (err, data) => {
+//             res.end(err ? err : data);
+//         });
+//         console.log(json_body);
+//         res.end('ok');
+//     });
+//     // res.send('TODO: add user detail');
+// });
+
+
 // var user = {
 //     "user4": {
 //         "name": "mohit",
