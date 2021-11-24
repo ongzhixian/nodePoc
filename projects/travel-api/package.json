@@ -32,9 +32,7 @@
   },
   "homepage": "https://github.com/ongzhixian/nodePoc#readme",
   "dependencies": {
-    "first-lib": "file:projects/first-lib",
     "jsonwebtoken": "^8.5.1",
-    "second-lib": "file:projects/second-lib",
     "sqlite3": "^5.0.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6"

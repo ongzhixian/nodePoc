@@ -87,16 +87,27 @@ A lot blogs got this wrong!
 The correct combination is:
 
 `npm install first-lib`
-`npm install first-lib -w travel-api`
 
+As in:
 
-The first line (`npm install first-lib`) will add a `dependencies` section to the root `package.json` file:
+```cmd
+DESKTOP-NJM00MP>zhixian D:\src\github\nodePoc (main)
+PS> npm install first-lib
+```
+
+This will add a `dependencies` section to the root `package.json` file:
 
 ```json
   "dependencies": {
     "first-lib": "file:projects/first-lib"
   }
 ```
+
+Because `npm install` is executed at the root directory, it will be available for all the projects.
+So no need to add it to each project.
+
+npm install first-lib --save -w travel-api
+
 
 After which the second line (`npm install first-lib -w travel-api`), will add version to the `package.json` file: 
 

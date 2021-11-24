@@ -27,5 +27,9 @@
     "projects\\travel-api",
     "projects\\first-lib",
     "projects\\second-lib"
-  ]
+  ],
+  "dependencies": {
+    "first-lib": "file:projects/first-lib",
+    "second-lib": "file:projects/second-lib"
+  }
 }
