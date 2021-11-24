@@ -36,6 +36,7 @@ Note: That `express` is only installed once into the `node_modules` folder.
 `npm install sqlite3 -w travel-api`
 `npm install jsonwebtoken -w travel-api`
 `npm install --save-dev jest --workspace=travel-api`
+`npm install body-parser -w travel-api`
 
 ## Run app
 
