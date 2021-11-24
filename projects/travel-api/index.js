@@ -9,6 +9,13 @@ var server;
 console.log("Mode: [%s]", settings['mode']);
 // console.log(settings.mode); // Alternate syntax
 
+// Setup middleware for parsing request body
+// app.use(bodyParser.urlencoded({extended: true}));    // Parse url-encoded body using body-parser package
+// app.use(bodyparser.json());                          // Parse JSON body using body-parser package
+// If using Express4.16+, use the following instead of the above:
+// app.use(express.urlencoded());   // For parsing URL-encoded bodies
+app.use(express.json());            // For parsing JSON bodies
+
 // Add routes defined in other files
 // Reminder: Order of routes matters in Express
 // Order should be from specific to generic
