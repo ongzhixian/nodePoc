@@ -80,40 +80,19 @@ PS>
 ```
 
 
-## Local test module as a dependency in another Node.js project
+## Test local module as a dependency in another Node.js project
 
-A lot blogs got this wrong!
+### Referencing the local module
 
-The correct combination is:
+Method 1: Update target project `dependencies` section in `package.json` 
 
-`npm install first-lib`
-
-As in:
-
-```cmd
-DESKTOP-NJM00MP>zhixian D:\src\github\nodePoc (main)
-PS> npm install first-lib
-```
-
-This will add a `dependencies` section to the root `package.json` file:
+Update the `dependencies` section in target project's (travel-api) `package.json` 
+and reference dependency project directory using `file:` directly like so:
 
 ```json
   "dependencies": {
-    "first-lib": "file:projects/first-lib"
-  }
-```
-
-Because `npm install` is executed at the root directory, it will be available for all the projects.
-So no need to add it to each project.
-
-npm install first-lib --save -w travel-api
-
-
-After which the second line (`npm install first-lib -w travel-api`), will add version to the `package.json` file: 
-
-```json
-  "dependencies": {
-    "first-app": "^1.0.0",
+    "first-lib": "file:../first-lib",
+    "second-lib": "file:../second-lib",
     "jsonwebtoken": "^8.5.1",
     "sqlite3": "^5.0.2",
     "swagger-jsdoc": "^6.1.0",
@@ -121,26 +100,17 @@ After which the second line (`npm install first-lib -w travel-api`), will add ve
   },
 ```
 
+This is probably the most clean method.
+The only disadvantage is that this has to be hand-written manually.
 
+Method 2: Add to `node_modules` folder and reference by version
 
-There seems to be a bug with using `npm install` with workspaces for local projects (see section 'Bug?! Do not work' below).
-
-The current correct combination seems to be:
-
-`npm install -w first-lib`
-`npm install --save ./projects/first-lib -w travel-api`
-
-The first command creates a link to the 'nodes_module' folder in the project root.
-The second command writes the dependency to the 'package.json' file for the 'travel-api' project 
-but comes with an misleading (alarming?!) error message.
-
-So instead of the calling second command, you can just make changes to the 'package.json' file of the 'travel-api' project manually.
-(because that's part of what the second command is suppose to do).
-
-In the package.json file of the travel-api project add the reference to 'second-lib' with version as follows:
+1.  `npm link projects\second-lib`
+2.  Update 'travel-app' package.json file's dependency section:
 
 ```json
   "dependencies": {
+    "first-lib": "^1.0.0",
     "second-lib": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "sqlite3": "^5.0.2",
@@ -149,99 +119,86 @@ In the package.json file of the travel-api project add the reference to 'second-
   },
 ```
 
---OR-- just reference the 'first-lib' as file reference without version, like so:
+Remarks:
+`npm link` creates a link to the dependency project in `node_modules` folder.
+You would then reference the version of the dependency project using version number.
 
-```json:Wait this is negative example now (see On further investigation in section 'Bug?! Do not work')
-  "dependencies": {
-    "first-lib": "file:projects/first-lib",
-    "second-lib": "file:projects/second-lib",
-    "jsonwebtoken": "^8.5.1",
-    "sqlite3": "^5.0.2",
-    "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.1.6"
-  },
-```
 
-Aside: While either of the above works, the second npm command mentioned above will actually write:
+Method 3: Install library at root level
 
-```json
-"first-lib": "file:projects/first-lib",
-```
+At the directory root, run:
 
-This will cause the command ` npm install -w travel-api` to fail with the following error:
+1.  `npm install second-lib`
 
-```cmd
-DESKTOP-NJM00MP>zhixian D:\src\github\nodePoc (main)
-PS> npm install -w travel-api
-npm ERR! Cannot set properties of null (setting 'dev')
-
-npm ERR! A complete log of this run can be found in:
-npm ERR!     C:\Users\zhixian\AppData\Local\npm-cache\_logs\2021-11-24T09_19_51_474Z-debug.log
-```
-
-So it might be better execute `npm install -w first-lib` and then update 'package.json' with:
-
-```json
-"first-lib": "^1.0.0",
-```
-
-### Bug?! Do not work
-
-Blogs elsewhere seems to suggest that the second command:
-
-`npm install --save ./projects/first-lib -w travel-api`
-
-would be sufficient (presumably, it will create the link in 'node_modules' and update the dependencies section in package.json file).
-
-But I find that when I just run the second command, the link to package folder is not created in 'node_modules' 
-and I will get the following error as well:
-
-```cmd:Not working!
-DESKTOP-NJM00MP>zhixian D:\src\github\nodePoc (main)
-PS> npm install .\projects\first-lib\ -w travel-api
-npm ERR! Cannot set properties of null (setting 'dev')
-
-npm ERR! A complete log of this run can be found in:
-npm ERR!     C:\Users\zhixian\AppData\Local\npm-cache\_logs\2021-11-24T01_45_08_518Z-debug.log
-```
-
-Currently any invoke of `npm install --save ./projects/first-lib -w travel-api` will display a message like the one above.
-But it does update the 'dependencies' section in the 'package.json' file to be like so:
+Remarks:
+This adds `dependencies` section in the `package.json` file in root directory.
 
 ```json
   "dependencies": {
-    "first-lib": "file:projects/first-lib",
-    "jsonwebtoken": "^8.5.1",
-    "second-lib": "file:projects/second-lib",
-    "sqlite3": "^5.0.2",
-    "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.1.6"
-  },
+    "second-lib": "file:projects/second-lib"
+  }
 ```
 
-The problem seems to have to do with `-w travel-api` option.
+This makes the dependency project available for all workspaces under the root directory.
+Since its available for all workspaces, we do not need to make any changes to 
+target project's `package.json` file.
 
-It seems to be confusing npm and it create another node_modules folder in the travel-api project. 
-(Instead of reusing the default node_modules folder in the root folder.)
+#### Bugs and other hearsay
 
-The workaround seems to be downgrading to npm@7.18.1 
+A lot of material on the Internet suggests doing something like:
+
+`npm install first-lib --save -w travel-api`
+
+This is based on the premise that 'first-lib' was published to npmjs repository.
+
+Without publishing to npmjs repository, 
+another common mistake would be to install it using local file paths:
+
+`npm install .\projects\second-lib -w travel-api`
+
+This adds a line like the following to the `dependencies` section 
+of the target project's `package.json` file.
+
+`"second-lib": "file:projects/second-lib",`
+
+This line is a bug!
+The correct way to reference it is:
+
+`"second-lib": "file:../second-lib",`
+
+In addition, the following error message will be display:
+
+```cmd:In E:\src\github.com\..\nodePoc (main)
+PS> npm install .\projects\second-lib -w travel-api
+npm ERR! Cannot set properties of null (setting 'dev')
+```
+
+#### Troubleshooting method 1
+
+Sometimes, `npm install -w travel-api` may display the following error messages:
+
+```cmd:Error message 1
+npm ERR! Invalid Version:
+```
+
 --OR--
-Just do what I suggested above.
 
-See: https://github.com/npm/cli/issues/3847
-See: https://github.com/npm/cli/issues/3711
-
-
-On further investigation, it seems that the error messages is caused by the lines added to the 'package.json' file!
-
-```json:package.json file
-  "dependencies": {
-    ...
-    "first-lib": "file:projects/first-lib",
-    "second-lib": "file:projects/second-lib",
-    ...
-  },
+```cmd:Error message 2
+npm ERR! code E404
+npm ERR! 404 Not Found - GET https://registry.npmjs.org/second-lib - Not found
+npm ERR! 404
+npm ERR! 404  'second-lib@^1.0.0' is not in this registry.
+npm ERR! 404 You should bug the author to publish it (or use the name yourself!)
+npm ERR! 404
+npm ERR! 404 Note that you can also install from a
+npm ERR! 404 tarball, folder, http url, or git url.
 ```
+
+In such cases, try:
+1.  removing the dependencies from target project's `package.json`
+2.  run `npm install -w travel-api`
+3.  re-add the dependencies to target project's `package.json`
+4.  run `npm install -w travel-api`
 
 
 ## Usage of libary in another project
