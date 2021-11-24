@@ -63,6 +63,7 @@ router.delete('/:id', function (req, res) {
 // The hard way to get request body
 // Previously the 'Express' framework packaged 'body-parser' to parse the request body.
 // But this is no longer the case; we need to manually add 'body-parser' package for the convenience now.
+// OR using Express4.16+!
 // This chunk of code demonstrates how to get the request body without using 'body-parser':
 // router.post('/', function (req, res) {
 //     let request_body = '';
