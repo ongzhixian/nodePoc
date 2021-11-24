@@ -28,6 +28,15 @@ CREATE TABLE "user" (
 );
 ```
 
+```sql
+CREATE TABLE "app_user" (
+	"id"	INTEGER,
+	"username"	TEXT NOT NULL UNIQUE,
+	"password"	TEXT NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+```
+
 ```sql:ISO-3166 Country-codes
 CREATE TABLE "country" (
 	"id"	INTEGER,
