@@ -149,10 +149,10 @@ A lot of material on the Internet suggests doing something like:
 
 `npm install first-lib --save -w travel-api`
 
-This is based on the premise that 'first-lib' was published to npmjs repository.
+This is based on the premise that 'first-lib' was published to npmjs repository!
 
 Without publishing to npmjs repository, 
-another common mistake would be to install it using local file paths:
+another common mistake would be to install it using local file paths, like so:
 
 `npm install .\projects\second-lib -w travel-api`
 
@@ -161,21 +161,27 @@ of the target project's `package.json` file.
 
 `"second-lib": "file:projects/second-lib",`
 
-This line is a bug!
-The correct way to reference it is:
+This line is a bug! The path that its referencing is wrong.
+The correct path to reference it is:
 
 `"second-lib": "file:../second-lib",`
 
-In addition, the following error message will be display:
+In addition, the following error message will also be display:
 
-```cmd:In E:\src\github.com\..\nodePoc (main)
+```cmd:In E:\src\github.com\nodePoc (main)
 PS> npm install .\projects\second-lib -w travel-api
 npm ERR! Cannot set properties of null (setting 'dev')
 ```
 
+I'm suspecting the `null` in the message `Cannot set properties of null`
+is actually referring to the fact that it could not find the referenced project
+(because the path is incorrect).
+
 #### Troubleshooting method 1
 
-Sometimes, `npm install -w travel-api` may display the following error messages:
+Because of the way the npm-ecosystem works, sometimes things just get messed up unwittingly.
+
+For example sometimes when you execute `npm install -w travel-api`, it may display the following error messages:
 
 ```cmd:Error message 1
 npm ERR! Invalid Version:
@@ -194,7 +200,7 @@ npm ERR! 404 Note that you can also install from a
 npm ERR! 404 tarball, folder, http url, or git url.
 ```
 
-In such cases, try (cleaning up the `package-lock.json` file?):
+In such cases, try (cleaning up the `package-lock.json` file?) by doing the following:
 1.  removing the dependencies from target project's `package.json`
 2.  run `npm install -w travel-api`
 3.  re-add the dependencies to target project's `package.json`
