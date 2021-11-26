@@ -83,3 +83,9 @@ Here's an example that sets source to be `./src` and output to be `./dist`:
   ]
 }
 ```
+
+# Reference
+
+https://www.section.io/engineering-education/how-to-use-typescript-with-nodejs/
+https://www.digitalocean.com/community/tutorials/setting-up-a-node-project-with-typescript
+https://nodejs.dev/learn/nodejs-with-typescript
