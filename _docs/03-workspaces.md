@@ -58,4 +58,5 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
 11. <mssql, mongodb, sse, sockets, rabbitmq, cosmosdb, typescript>
 12. tscone
     A simple TypeScript app
-    
+13. mg-test
+    A simple app to test MongoDb with Node.js
