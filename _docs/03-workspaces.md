@@ -55,4 +55,7 @@ See: https://docs.npmjs.com/cli/v8/using-npm/workspaces
     An example of Node.js library
 10. second-lib
     An alternate example of Node.js library
-11. <mssql, mongodb, sse, sockets, rabbitmq>
+11. <mssql, mongodb, sse, sockets, rabbitmq, cosmosdb, typescript>
+12. tscone
+    A simple TypeScript app
+    
