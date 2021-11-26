@@ -2,10 +2,11 @@
 
 ## Installation npm packages
 
-`npm install --save-dev typescript -w tsone`       # Install typescript to project (bare minimal; the rest are nice-to-haves)
+`npm install --save-dev typescript -w tsone`        # Install typescript to project (bare minimal; the rest are nice-to-haves)
+`npm install --save-dev tslib -w tsone`             # Install tslib to project (for type-safe library); 
+                                                    # Use in conjunction with `"importHelpers": true,` in `tsconfig.json`
 `npm install --save-dev tslint -w tsone`
-`npm install --save-dev tslib`
-`npm install --save-dev @types/node`
+`npm install --save-dev @types/node  -w tsone`
 
 `npm install express -w tsone`
 `npm install --save-dev @types/express -w tsone`
