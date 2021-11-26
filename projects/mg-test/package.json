@@ -1,0 +1,27 @@
+{
+  "name": "mg-test",
+  "version": "1.0.0",
+  "description": "MongoDb test app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ongzhixian/nodePoc.git"
+  },
+  "keywords": [
+    "MongoDb",
+    "Node"
+  ],
+  "author": "Zhixian Ong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ongzhixian/nodePoc/issues"
+  },
+  "homepage": "https://github.com/ongzhixian/nodePoc#readme",
+  "dependencies": {
+    "mongodb": "^4.2.0"
+  }
+}
