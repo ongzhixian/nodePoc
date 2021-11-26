@@ -32,7 +32,11 @@ router.get('/', async function (req, res) {
     if (STARTS_WITH in req.query)
         startsWith = req.query[STARTS_WITH];
 
-    res.send(await countryService.getCountries(startsWith));
+    
+    log.info("startsWith: [%s]", startsWith);
+
+    // res.send(await countryService.getCountries(startsWith));
+    res.send(await countryService.mgGetCountries(startsWith));
 })
 
 router.get('/:id', async function (req, res) {
@@ -44,7 +48,8 @@ router.get('/:id', async function (req, res) {
     if (PARAM_ID in req.params)
         id = req.params[PARAM_ID];
 
-    res.send(await countryService.getCountry(id));
+    res.send(await countryService.mgGetCountry(id));
+    // res.send(await countryService.getCountry(id));
 })
 
 router.post('/', function (req, res) {
