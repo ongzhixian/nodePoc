@@ -1,0 +1,29 @@
+{
+  "name": "tsone",
+  "version": "1.0.0",
+  "description": "A simple TypeScript on Node.js example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "tsc --init",
+    "mk": "tsc",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ongzhixian/nodePoc.git"
+  },
+  "keywords": [
+    "node",
+    "typescript"
+  ],
+  "author": "Zhixian Ong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ongzhixian/nodePoc/issues"
+  },
+  "homepage": "https://github.com/ongzhixian/nodePoc#readme",
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
