@@ -18,6 +18,16 @@ Otherwise, each project will have its own `node_modules` folder.
 `npm init -w ./projects/tutorial-app`
 `npm init -w ./projects/first-lib`
 
+IMPORTANT! Do not use ANY upper case letters in the workspace name. For example:
+`npm init -w ./projects/mgTest`
+Using upper case letters will cause the npm to be unable to find the workspace. (use hypens instead `mg-test`)
+
+```cmd
+PS> npm install mongodb -w mgTest
+npm ERR! No workspaces found:
+npm ERR!   --workspace=mgTest
+```
+
 Note: 
     Initially, the example above specifies the workspace as `./projects/node-tutorial-app`.
     However, it was observed that during the creation of the `package.json` file, 
@@ -42,6 +52,7 @@ Note: That `express` is only installed once into the `node_modules` folder.
 `npm install tslint -w tsone`
 `npm install express -w tsone`
 `npm install @types/express -w tsone`
+
 
 
 ## Run app
