@@ -4,6 +4,7 @@
 
 `npm install --save-dev typescript -w tsone`       # Install typescript to project (bare minimal; the rest are nice-to-haves)
 `npm install --save-dev tslint -w tsone`
+`npm install --save-dev tslib`
 `npm install --save-dev @types/node`
 
 `npm install express -w tsone`
@@ -77,6 +78,7 @@ Here's an example that sets source to be `./src` and output to be `./dist`:
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "importHelpers": true,
   },
   "exclude":[
     "./node_modules"
