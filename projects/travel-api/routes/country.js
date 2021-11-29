@@ -35,8 +35,12 @@ router.get('/', async function (req, res) {
     
     log.info("startsWith: [%s]", startsWith);
 
+    let result = await countryService.mgGetCountries(startsWith);
+
+    log.info("result count: [%d]", result.length);
+
     // res.send(await countryService.getCountries(startsWith));
-    res.send(await countryService.mgGetCountries(startsWith));
+    res.send(result);
 })
 
 router.get('/:id', async function (req, res) {
