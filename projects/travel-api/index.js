@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express');
+const cors = require('cors');
 var app = express();
 var settings = require('./services/AppConfigurationService');
 
@@ -16,6 +17,11 @@ console.log("Mode: [%s]", settings['mode']);
 // app.use(express.urlencoded());   // For parsing URL-encoded bodies
 app.use(express.json());            // For parsing JSON bodies
 
+app.use(cors({
+    // origin: 'https://localhost:4200'
+    origin: '*'
+}));
+
 // Add routes defined in other files
 // Reminder: Order of routes matters in Express
 // Order should be from specific to generic
@@ -23,6 +29,7 @@ app.use(express.json());            // For parsing JSON bodies
 app.use('/api/authentication', require('./routes/authentication.js'));
 app.use('/api/user', require('./routes/user.js'));
 app.use('/country', require('./routes/country.js'));
+app.use('/travel-info', require('./routes/travel-info.js'));
 app.use('/swagger', require('./routes/swagger.js'));
 app.use('/test-lib', require('./routes/firstLib.js'));
 app.use('/', require('./routes/root.js'));
