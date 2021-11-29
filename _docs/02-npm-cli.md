@@ -47,13 +47,14 @@ Note: That `express` is only installed once into the `node_modules` folder.
 `npm install jsonwebtoken -w travel-api`
 `npm install --save-dev jest --workspace=travel-api`
 `npm install body-parser -w travel-api`
+`npm install cors -w travel-api`
 
 `npm install typescript -w tsone` # Install typescript to tsone (bare minimal; the rest are nice-to-haves)
 `npm install tslint -w tsone`
 `npm install express -w tsone`
 `npm install @types/express -w tsone`
 
-
+ 
 
 ## Run app
 
