@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/ongzhixian/nodePoc#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "first-lib": "file:../first-lib",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.2.0",
