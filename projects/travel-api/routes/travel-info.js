@@ -23,7 +23,7 @@ router.get('/:id', async function (req, res) {
     log.info("MOCK travel-info ID: [%s]", id);
 
     res.send(JSON.stringify({
-        id: id,
+        code: id,
         riskLevel: 1
     }))
     // res.send(`TODO: return travel info for id: [${id}]`);
