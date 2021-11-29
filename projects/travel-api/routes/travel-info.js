@@ -20,7 +20,13 @@ router.get('/:id', async function (req, res) {
     if (PARAM_ID in req.params)
         id = req.params[PARAM_ID];
 
-    res.send(`TODO: return travel info for id: [${id}]`);
+    log.info("MOCK travel-info ID: [%s]", id);
+
+    res.send(JSON.stringify({
+        id: id,
+        riskLevel: 1
+    }))
+    // res.send(`TODO: return travel info for id: [${id}]`);
     // res.send(await countryService.mgGetCountry(id));
     // res.send(await countryService.getCountry(id));
 })
