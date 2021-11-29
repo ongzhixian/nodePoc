@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Zx custom
+ako.ps1
+*.test.ps1
+*secrets.json

@@ -7,7 +7,11 @@ var settings = require('./services/AppConfigurationService');
 var server;
 
 // 'settings' usage example
-console.log("Mode: [%s]", settings['mode']);
+console.info("Settings (read from 'settings.json')");
+console.info("Name:      [%s]", settings['name']);
+console.info("Version:   [%s]", settings['version']);
+console.info("Mode:      [%s]", settings['mode']);
+console.info("Port:      [%s]", settings['port']);
 // console.log(settings.mode); // Alternate syntax
 
 // Setup middleware for parsing request body
@@ -34,7 +38,7 @@ app.use('/swagger', require('./routes/swagger.js'));
 app.use('/test-lib', require('./routes/firstLib.js'));
 app.use('/', require('./routes/root.js'));
 
-server = app.listen(8081, function () {
+server = app.listen(settings['port'], function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("Application url: http://%s:%s", host, port);

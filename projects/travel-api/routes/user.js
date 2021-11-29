@@ -12,7 +12,7 @@ router.post('/', async function (req, res) {
     let password = req.body.password;
 
     try {
-        await userService.addUser(username, password);
+        await userService.registerUser(username, password);
         console.info("[SUCC] addUser");
         res.end(); // send success
         
@@ -26,36 +26,36 @@ router.post('/', async function (req, res) {
     }
 });
 
-router.put('/', async function (req, res) {
+// router.put('/', async function (req, res) {
 
-    let username = req.body.username;
-    let password = req.body.password;
+//     let username = req.body.username;
+//     let password = req.body.password;
 
-    try {
-        await userService.updateUser(username, password);
-        console.info("[SUCC] updateUser");
-        res.end();
+//     try {
+//         await userService.updateUser(username, password);
+//         console.info("[SUCC] updateUser");
+//         res.end();
 
-    } catch (error) {
-        console.info("[FAIL] updateUser");
-        res.status(400).end();
-    }
-});
+//     } catch (error) {
+//         console.info("[FAIL] updateUser");
+//         res.status(400).end();
+//     }
+// });
 
-router.delete('/', async function (req, res) {
-    let username = req.body.username;
-    let password = req.body.password;
+// router.delete('/', async function (req, res) {
+//     let username = req.body.username;
+//     let password = req.body.password;
 
-    try {
-        await userService.deleteUser(username, password);
-        console.info("[SUCC] deleteUser");
-        res.end();
+//     try {
+//         await userService.deleteUser(username, password);
+//         console.info("[SUCC] deleteUser");
+//         res.end();
 
-    } catch (error) {
-        console.info("[FAIL] deleteUser");
-        res.status(400).end();
-    }
-});
+//     } catch (error) {
+//         console.info("[FAIL] deleteUser");
+//         res.status(400).end();
+//     }
+// });
 
 
 module.exports = router;

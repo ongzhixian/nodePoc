@@ -34,9 +34,9 @@ class MongoDbService {
 
     async insert(collectionName, document) {
 
-        try {
+        const client = new MongoClient(this.mongoDbUri);
 
-            const client = new MongoClient(this.mongoDbUri);
+        try {
 
             await client.connect();
 
@@ -135,6 +135,44 @@ class MongoDbService {
             const collection = database.collection(collectionName);
 
             return await collection.findOne(query, options);
+
+        } finally {
+            await client.close();
+        }
+    }
+
+    async updateOne(collectionName, query={}, updates={}, options={}) {
+        
+        const client = new MongoClient(this.mongoDbUri);
+
+        try {
+
+            await client.connect();
+
+            const database = client.db();
+
+            const collection = database.collection(collectionName);
+
+            return await collection.updateOne(query, updates, options);
+
+        } finally {
+            await client.close();
+        }
+    }
+
+    async deleteOne(collectionName, query={}, options={}) {
+        
+        const client = new MongoClient(this.mongoDbUri);
+
+        try {
+
+            await client.connect();
+
+            const database = client.db();
+
+            const collection = database.collection(collectionName);
+
+            return await collection.deleteOne(query, options);
 
         } finally {
             await client.close();

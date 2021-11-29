@@ -1,3 +1,6 @@
 {
-    "mode" : "staging"
+    "name": "travel-api",
+    "version": "1.0.0",
+    "mode": "staging",
+    "port": 7200
 }
