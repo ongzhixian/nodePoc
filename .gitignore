@@ -104,6 +104,7 @@ dist
 .tern-port
 
 # Zx custom
+.vs
 ako.ps1
 *.test.ps1
 *secrets.json
