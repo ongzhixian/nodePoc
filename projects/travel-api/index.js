@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express');
+var expressJwt = require('express-jwt');
 const cors = require('cors');
 var app = express();
 var settings = require('./services/AppConfigurationService');
@@ -13,6 +14,9 @@ console.info("Version:   [%s]", settings['version']);
 console.info("Mode:      [%s]", settings['mode']);
 console.info("Port:      [%s]", settings['port']);
 // console.log(settings.mode); // Alternate syntax
+// SECRET FOR JWT
+let secret = 'some_secret'; // a secret key is set here
+
 
 // Setup middleware for parsing request body
 // app.use(bodyParser.urlencoded({extended: true}));    // Parse url-encoded body using body-parser package
@@ -26,11 +30,36 @@ app.use(cors({
     origin: '*'
 }));
 
+
+
+app.use(
+    expressJwt({ secret: secret, algorithms: ['HS256']})
+    .unless({ 
+        path: [
+            '/jwt/token/sign'
+        ]
+    })
+);
+
+app.use(function (err, req, res, next) {
+    console.log("GENERIC: [%s]", req.url);
+    console.log("errname: [%s]", err.name);
+
+    if (err.name === 'UnauthorizedError') {
+        console.log("NOT AUTHORIZED: [%s]", req.url);
+        res.status(401).send('invalid token...').end();
+        return;
+    }
+
+    next();
+});
+
 // Add routes defined in other files
 // Reminder: Order of routes matters in Express
 // Order should be from specific to generic
 
 app.use('/api/authentication', require('./routes/authentication.js'));
+app.use('/jwt', require('./routes/jwt.js'));
 app.use('/api/user', require('./routes/user.js'));
 app.use('/country', require('./routes/country.js'));
 app.use('/travel-info', require('./routes/travel-info.js'));
