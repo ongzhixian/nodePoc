@@ -31,28 +31,28 @@ app.use(cors({
 }));
 
 
+// Setup middleware for JWT
+// app.use(
+//     expressJwt({ secret: secret, algorithms: ['HS256']})
+//     .unless({ 
+//         path: [
+//             '/jwt/token/sign'
+//         ]
+//     })
+// );
 
-app.use(
-    expressJwt({ secret: secret, algorithms: ['HS256']})
-    .unless({ 
-        path: [
-            '/jwt/token/sign'
-        ]
-    })
-);
+// app.use(function (err, req, res, next) {
+//     console.log("GENERIC: [%s]", req.url);
+//     console.log("errname: [%s]", err.name);
 
-app.use(function (err, req, res, next) {
-    console.log("GENERIC: [%s]", req.url);
-    console.log("errname: [%s]", err.name);
+//     if (err.name === 'UnauthorizedError') {
+//         console.log("NOT AUTHORIZED: [%s]", req.url);
+//         res.status(401).send('invalid token...').end();
+//         return;
+//     }
 
-    if (err.name === 'UnauthorizedError') {
-        console.log("NOT AUTHORIZED: [%s]", req.url);
-        res.status(401).send('invalid token...').end();
-        return;
-    }
-
-    next();
-});
+//     next();
+// });
 
 // Add routes defined in other files
 // Reminder: Order of routes matters in Express

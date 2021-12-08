@@ -12,7 +12,7 @@ router.get('/token/sign', (req, res) => {
         "name": "My Name",
         "id": "1234"
     }
-    let token = jwt.sign(userData, secret, { expiresIn: '15s'})
+    let token = jwt.sign(userData, secret, { expiresIn: '15m'})
     res.status(200).json({"token": token});
 });
 
